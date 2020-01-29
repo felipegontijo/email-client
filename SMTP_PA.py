@@ -154,3 +154,20 @@ def endSecureConnection(secureClientSocket):
     print(recv11)
     if recv11[:3] != '221':
         print('221 reply not received from server')
+
+'''
+    The function main
+'''
+def main():
+
+    #defines the mailserver here for easier maintenance
+    mailserver = 'outlook.com'
+
+    #creates the socket
+    clientSocket = socket(AF_INET, SOCK_STREAM)
+
+    #calls openSocket with the two previously created 'variables'
+    openSocket(clientSocket, mailserver)
+
+    #closes the socket
+    clientSocket.close()
