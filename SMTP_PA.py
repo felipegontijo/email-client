@@ -100,3 +100,29 @@ def authenticate(secureClientSocket):
     recipient = input('Enter the destination email address: ')
     rcpt = 'RCPT TO: <' + recipient + '>\r\n'
     sendSecure(secureClientSocket, rcpt, '250')
+
+'''
+@pre    user authentication successfully complete
+@post   complete email message acquired
+    Function to begin building the email itself. Sends DATA message request
+    to server, creates a MIME object, fills the headers and the body of the email.
+@param  secureClientSocket
+@return msgString the message converted into a string
+'''
+def writeMail(secureClientSocket):
+
+    sendSecure(secureClientSocket, 'DATA\r\n', '354')
+
+    msg = MIMEMultipart()
+
+    msg['From'] = input('From: ')
+    msg['To'] = input('To: ')
+    msg['Subject'] = input('Subject: ')
+
+    body = input('Type your mail: ')
+    message = MIMEText(body, 'plain')
+    msg.attach(message)
+
+    #converts msg into string as send() function requires it to be a string
+    msgString = msg.as_string()
+    return msgString
