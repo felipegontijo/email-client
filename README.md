@@ -18,15 +18,19 @@ This creates an alternative to using the web browser to send emails. It is flexi
 2.  Make sure Python is installed. Type in a terminal:
     ```python --version```
 3.  If output shows a version of Python installed, procceed to step 5. Otherwise, go to step 4:
-4.  [Download](https://www.python.org/downloads/) and install Python. Check the steps in their website and come back after you've installed it.
+4.  [Download](https://www.python.org/downloads/) and install Python. Follow the steps in their website and come back after you've installed it.
 5.  Navigate in a terminal, from root to project folder, with ```cd <folder>``` **until you reach the folder which the project is in!**
 6.  Type the command ```python SMTP_PA.py``` to run the email client
-7.  Type all requested information in **string** format, i.e. between " "
-8.  Enjoy!
+7.  Type all requested information in **string** format, i.e. between " " or ' '
+8.  Have fun!
+
+**Observation:** Make sure you make the 'To:' field match the 'destination email address', because many providers will not allow the completion of the request if those fields differ. The 'From' field does not need to match your email address, however!
 
 ## Important Observation
 
-The default email provider is set to Outlook, but if you use another provider, e.g. Gmail, Yahoo, etc., it can be easily changed in the source code. Find the ```mailserver``` variable and set it to the URL of your preferred provider, e.g. 'gmail.com'.
+This project is optimized for **Outlook** as the provider, but if you use another provider, e.g. Gmail, Yahoo, etc., it can be changed in the source code. Find the ```mailserver``` variable and set it to the URL of your preferred provider, along with the ```HELO``` messages.
+
+Make sure you also change the port if necessary!
 
 ## Open Source
 
