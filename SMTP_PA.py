@@ -126,3 +126,18 @@ def writeMail(secureClientSocket):
     #converts msg into string as send() function requires it to be a string
     msgString = msg.as_string()
     return msgString
+
+'''
+@pre   complete email message acquired. message converted into a string.
+@post  message sent
+    Sends the email message
+@param secureClientSocket
+@param msgString  the email message as a string
+'''
+def sendMail(secureClientSocket, msgString):
+
+    secureClientSocket.send(msgString.encode() + '\r\n'.encode() + '.\r\n'.encode())
+    recv10 = secureClientSocket.read(1024).decode()
+    print(recv10)
+    if recv10[:3] != '250':
+        print('250 reply not received from server')
