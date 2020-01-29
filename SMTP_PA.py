@@ -141,3 +141,16 @@ def sendMail(secureClientSocket, msgString):
     print(recv10)
     if recv10[:3] != '250':
         print('250 reply not received from server')
+
+'''
+@pre    secureClientSocket created. secure connection established.
+    Ends the current secure connection by sending the QUIT message to the server.
+@param  secureClientSocket
+'''
+def endSecureConnection(secureClientSocket):
+
+    secureClientSocket.send('QUIT\r\n'.encode())
+    recv11 = secureClientSocket.read(1024).decode()
+    print(recv11)
+    if recv11[:3] != '221':
+        print('221 reply not received from server')
