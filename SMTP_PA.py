@@ -52,3 +52,17 @@ def sendToServer(clientSocket, info, expectedReplyMessage):
     print(recv)
     if recv[:3] != expectedReplyMessage :
         print('%s reply not received from server.'%(expectedReplyMessage))
+
+'''
+@pre   secureClientSocket created. secure connection established
+    Same as sendToServer, but through a secure connection instead
+@param   secureClientSocket
+@param   info - the message/data to be sent to the Server
+@param   expectedReplyMessage - the reply message expected for 'info'
+'''
+def sendSecure(secureClientSocket, info, expectedReplyMessage):
+    secureClientSocket.send(info.encode())
+    recv = secureClientSocket.read(1024).decode()
+    print(recv)
+    if recv[:3] != expectedReplyMessage :
+        print('%s reply not received from server.'%(expectedReplyMessage))
