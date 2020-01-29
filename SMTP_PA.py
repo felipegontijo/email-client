@@ -171,3 +171,5 @@ def main():
 
     #closes the socket
     clientSocket.close()
+
+main()
