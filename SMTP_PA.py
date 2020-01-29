@@ -66,3 +66,37 @@ def sendSecure(secureClientSocket, info, expectedReplyMessage):
     print(recv)
     if recv[:3] != expectedReplyMessage :
         print('%s reply not received from server.'%(expectedReplyMessage))
+
+'''
+@pre    secure connection stablished, and second HELO message sent
+@post   authentication completed. MAIL FROM and RCPT TO requests sent.
+    Goes through the authentication process, requesting the user's username and password.
+    Sends MAIL FROM and RCPT TO requests.
+@param  secureClientSocket
+'''
+def authenticate(secureClientSocket):
+
+    sendSecure(secureClientSocket, 'AUTH LOGIN\r\n', '334')
+
+    username = input('Enter your Outlook email address: ')
+    secureClientSocket.send(base64.b64encode(username.encode()) + '\r\n'.encode())
+    recv5 = secureClientSocket.read(1024).decode()
+    print(recv5)
+    if recv5[:3] != '334':
+        print('334 reply not received from server.')
+
+
+    password = input('Enter your Outlook password: ')
+    secureClientSocket.send(base64.b64encode(password.encode()) + '\r\n'.encode())
+    recv6 = secureClientSocket.read(1024).decode()
+    print(recv6)
+    if recv6[:3] != '235':
+        print('235 reply not received from server.')
+
+    #username put as the username previously asked to the user
+    mailFrom = 'MAIL FROM: <' + username + '>\r\n'
+    sendSecure(secureClientSocket, mailFrom, '250')
+
+    recipient = input('Enter the destination email address: ')
+    rcpt = 'RCPT TO: <' + recipient + '>\r\n'
+    sendSecure(secureClientSocket, rcpt, '250')
